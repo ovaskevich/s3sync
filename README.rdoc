@@ -241,7 +241,11 @@ advanced option.
 
 == INSTALL:
 
-sudo gem install aproxacs-s3sync
+sudo gem install frahugo-s3sync
+
+Or if you use bundler, you can point to the source repo:
+
+gem 'frahugo-s3sync', :git => 'git://github.com/frahugo/s3sync.git'
 
 
 Your environment:
