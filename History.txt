@@ -1,5 +1,10 @@
 2010-12-16
 Version 1.3.7
+Install instructions
+
+
+2010-12-16
+Version 1.3.7
 Added delegate requirement in HTTPstreaming to fix error "uninitialized constant S3sync::SimpleDelegator"
 
 2010-11-29
