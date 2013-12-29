@@ -511,7 +511,7 @@ ENDUSAGE
           fType = @path.split('.').last
           if ($S3syncOptions['--gzip'] || "gz").split(",").include? fType
             headers['Content-Encoding'] = "gzip" 
-            fType = @path.split('.')[-2]
+            fType = @path.split('.')[-2] if fType == "gz"
           end
           if $S3syncOptions['--vary-accept-encoding']
 		    headers['Vary'] = 'Accept-Encoding';
