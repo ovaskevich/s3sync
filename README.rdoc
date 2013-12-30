@@ -241,11 +241,11 @@ advanced option.
 
 == INSTALL:
 
-sudo gem install frahugo-s3sync
+sudo gem install ovaskevich-s3sync
 
 Or if you use bundler, you can point to the source repo:
 
-gem 'frahugo-s3sync', :git => 'git://github.com/frahugo/s3sync.git'
+gem 'ovaskevich-s3sync', :git => 'git://github.com/ovaskevich/s3sync.git'
 
 
 Your environment:
