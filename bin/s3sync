@@ -381,7 +381,7 @@ ENDUSAGE
           end
         puts "Create node #{sourceNode.name}" if $S3syncOptions['--verbose']
 		# don't create directory nodes if the option is set. This is useful for static sites where we want S3 to redirect automatically
-		dNode.updateFrom(sourceNode) unless $S3syncOptions['--dryrun'] unless ($S3syncOptions['--no-directory-files'] && sourceNode.end_with?('/'))
+		dNode.updateFrom(sourceNode) unless $S3syncOptions['--dryrun'] unless ($S3syncOptions['--no-directory-files'] && sourceNode.name.end_with?('/'))
         sourceNode = sourceNode.nil? ? nil : sourceTree.next rescue nil
       elsif (!sourceNode) or (destinationNode and (sourceNode.name > destinationNode.name))
         $stderr.puts "Source does not have #{destinationNode.name}" if $S3syncOptions['--debug']
