@@ -68,6 +68,7 @@ module S3sync
                                    [ '--cache-control',  GetoptLong::REQUIRED_ARGUMENT ],
                                    [ '--exclude',        GetoptLong::REQUIRED_ARGUMENT ],
                                    [ '--gzip',      	GetoptLong::REQUIRED_ARGUMENT ], 
+                                   [ '--no-directory-files', GetoptLong::NO_ARGUMENT ], 
                                    [ '--key', '-k',        GetoptLong::REQUIRED_ARGUMENT],
                                    [ '--secret',     GetoptLong::REQUIRED_ARGUMENT],
                                    [ '--make-dirs',	GetoptLong::NO_ARGUMENT ],
@@ -84,7 +85,7 @@ module S3sync
   --public-read -p      --expires="<exp>"    --cache-control="<cc>"
   --exclude="<regexp>"  --progress           --debug   -d
   --key     -k          --secret      -s     --make-dirs           
-  --no-md5  --gzip
+  --no-md5  --gzip      --no-directory-files
 One of <source> or <destination> must be of S3 format, the other a local path.
 Reminders:
 * An S3 formatted item with bucket 'mybucket' and prefix 'mypre' looks like:
@@ -379,7 +380,8 @@ ENDUSAGE
             LocalNode.new(localPrefix, sourceNode.name)
           end
         puts "Create node #{sourceNode.name}" if $S3syncOptions['--verbose']
-        dNode.updateFrom(sourceNode) unless $S3syncOptions['--dryrun']
+		# don't create directory nodes if the option is set. This is useful for static sites where we want S3 to redirect automatically
+		dNode.updateFrom(sourceNode) unless $S3syncOptions['--dryrun'] unless ($S3syncOptions['--no-directory-files'] && sourceNode.end_with?('/'))
         sourceNode = sourceNode.nil? ? nil : sourceTree.next rescue nil
       elsif (!sourceNode) or (destinationNode and (sourceNode.name > destinationNode.name))
         $stderr.puts "Source does not have #{destinationNode.name}" if $S3syncOptions['--debug']
